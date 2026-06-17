@@ -1,10 +1,12 @@
 """Web application to deploy the model"""
+from pathlib import Path
 
 import pickle
 
 import pandas as pd  # type: ignore
 from flask import Flask, render_template, request  # type: ignore
 
+BASE = Path(__file__).resolve().parent.parent
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "you-will-never-guess"
 
@@ -45,7 +47,7 @@ def index():
 
         df = pd.DataFrame.from_dict(user_values, orient="index").T
 
-        with open("homework/house_predictor.pkl", "rb") as file:
+        with open(BASE / "homework" / "house_predictor.pkl", "rb") as file:
             loaded_model = pickle.load(file)
 
         prediction = round(loaded_model.predict(df)[0][0], 2)

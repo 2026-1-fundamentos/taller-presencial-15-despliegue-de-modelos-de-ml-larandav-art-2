@@ -1,5 +1,4 @@
 # api_server.py
-# api_server.py
 
 """API server example"""
 
